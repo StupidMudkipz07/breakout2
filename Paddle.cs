@@ -1,4 +1,4 @@
-class Paddle : IDrawable
+ class Paddle : IDrawable
 {
     public Sprite sprite;
     Vector2f position = new(600, 900);
@@ -33,7 +33,7 @@ class Paddle : IDrawable
         sprite.Position = position;
         rectangle.Position = position;
         //orka fixa sprite grejer Det kan du göra arvid
-        //sprite.size = size;
+        //sprite.Texture.Size = size;
         //targetWindow.Draw(sprite);
         targetWindow.Draw(rectangle);
     }

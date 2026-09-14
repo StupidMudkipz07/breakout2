@@ -24,6 +24,7 @@ window.KeyPressed += (sender, e) =>
 };
 
 Paddle kirkigBåt = new();
+Ball kirkigKött = new();
 
 Clock clock = new Clock();
 while (window.IsOpen)
@@ -36,6 +37,8 @@ while (window.IsOpen)
     window.Clear(Color.Black);
     kirkigBåt.Update(deltaTime);
     kirkigBåt.Draw(window);
+    kirkigKött.Update(deltaTime);
+    kirkigKött.Draw(window);
 
     window.Display();
 }
