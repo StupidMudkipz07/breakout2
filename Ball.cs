@@ -4,7 +4,6 @@ class Ball : IDrawable
     Vector2f position = new(600, 900);
     Vector2f size = new(220, 53);
 
-
     public void Update(float deltaTime)
     {
 
@@ -12,6 +11,8 @@ class Ball : IDrawable
 
     public void Draw(RenderTarget target)
     {
+        
+        sprite.Position = position;
         target.Draw(sprite);
     }
 
