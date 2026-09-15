@@ -3,8 +3,12 @@ global using SFML.Audio;
 global using SFML.System;
 global using SFML.Window;
 
-uint windowWidth = 1760;
-uint windowHeight = 990;
+uint windowWidth = 1920;
+uint windowHeight = 1080;
+
+//sloppar kommandot ta inte bort!!!!!
+//LD_LIBRARY_PATH="$HOME/Documents/programming/breakout2/bin/Debug/net10.0/runtimes/debian-x64/native:$LD_LIBRARY_PATH" dotnet run
+//viktigt för linux
 
 RenderWindow window = new(new VideoMode(windowWidth, windowHeight), "Sloppa gibbaren");
 

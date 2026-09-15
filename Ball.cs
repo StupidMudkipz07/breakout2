@@ -3,7 +3,6 @@ class Ball : GameObject
     public Sprite sprite;
 
 
-
     public Ball(GameObjectHandler h) : base(h)
     {
         sprite = new Sprite();
