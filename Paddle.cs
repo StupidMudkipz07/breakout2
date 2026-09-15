@@ -33,7 +33,6 @@
         sprite.Position = position;
         rectangle.Position = position;
         //orka fixa sprite grejer Det kan du göra arvid
-        //sprite.Texture.Size = size;
         //targetWindow.Draw(sprite);
         targetWindow.Draw(rectangle);
     }
