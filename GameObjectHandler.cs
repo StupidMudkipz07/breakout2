@@ -1,7 +1,7 @@
 class GameObjectHandler
 {
 
-    RenderWindow denLusitgaSkärmen;
+    RenderWindow denLustigaSkärmen;
     public List<GameObject> GameList = new();
 
     public void GibbGubb(float deltaTime)
@@ -10,15 +10,15 @@ class GameObjectHandler
         {
             //först uppdatera alla värden
             GameList[i].Update(deltaTime);
-            GameList[i].TheBigD(denLusitgaSkärmen); // sen ritar man ut allt till skärmen
+            GameList[i].TheBigD(denLustigaSkärmen); // sen ritar man ut allt till skärmen
         }
 
-        // tar bort alla objekt efter man har itererat
+        // tar bort alla objekt efter man har itererat så inte listan förstörs
         GameList.RemoveAll(obj => obj.remove == true);
     }
 
     public GameObjectHandler(RenderWindow r)
     {
-        denLusitgaSkärmen = r;
+        denLustigaSkärmen = r;
     }
 }

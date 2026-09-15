@@ -1,4 +1,4 @@
-﻿using SFML.Window;
+﻿
 
 /// <summary>
 /// Handels keyboard inputs.

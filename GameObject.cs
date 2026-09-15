@@ -7,8 +7,8 @@ abstract class GameObject
 
     public bool remove;
 
-    Vector2f pos = new();
-    Vector2f size = new();
+    protected Vector2f pos = new();
+    protected Vector2f size = new();
 
     
     public GameObject(GameObjectHandler h)
