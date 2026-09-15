@@ -17,14 +17,12 @@ window.KeyPressed += (sender, e) =>
 {
     //input debug
     Console.WriteLine("Key pressed " + e.Code);
-    if (e.Code == Keyboard.Key.Escape)
-    {
-        window.Close();
-    }
 };
 
-Paddle kirkigBåt = new();
-Ball kirkigKött = new();
+
+GameObjectHandler slopparGibbet = new(window);
+Paddle paddlaren = new(slopparGibbet);
+Ball boll = new(slopparGibbet);
 
 Clock clock = new Clock();
 while (window.IsOpen)
@@ -33,12 +31,8 @@ while (window.IsOpen)
 
     float deltaTime = clock.Restart().AsSeconds();
 
-    // Console.WriteLine(deltaTime);
     window.Clear(Color.Black);
-    kirkigBåt.Update(deltaTime);
-    kirkigBåt.Draw(window);
-    kirkigKött.Update(deltaTime);
-    kirkigKött.Draw(window);
+    slopparGibbet.GibbGubb(deltaTime);
 
     window.Display();
 }

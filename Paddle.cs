@@ -1,4 +1,4 @@
- class Paddle : IDrawable
+class Paddle : GameObject
 {
     public Sprite sprite;
     Vector2f position = new(600, 900);
@@ -6,7 +6,7 @@
 
     RectangleShape rectangle = new();
 
-    public Paddle()
+    public Paddle(GameObjectHandler h) : base(h)
     {
         rectangle = new() { Size = size, FillColor = Color.Red, Position = position, };
         sprite = new Sprite();
@@ -14,13 +14,13 @@
         sprite.Position = position;
     }
 
-    public void Update(float deltaTime)
+    public override void Update(float deltaTime)
     {
         Vector2f direction = new Vector2f(0, 0);
 
-        if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+        if (KeyboardHandler.IsKeyDown(Keyboard.Key.A))
             direction.X -= 1;
-        if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+        if (KeyboardHandler.IsKeyDown(Keyboard.Key.D))
             direction.X += 1;
 
         position += direction * 500 * deltaTime;
@@ -28,12 +28,12 @@
         position.X = Math.Clamp(position.X, 0, 1760 - size.X);
     }
 
-    public void Draw(RenderTarget targetWindow)
+    public override void TheBigD(RenderTarget targetWindow)
     {
         sprite.Position = position;
         rectangle.Position = position;
         //orka fixa sprite grejer Det kan du göra arvid
-        //targetWindow.Draw(sprite);
+        targetWindow.Draw(sprite);
         targetWindow.Draw(rectangle);
     }
 }
