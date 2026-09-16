@@ -22,20 +22,24 @@ window.KeyPressed += (sender, e) =>
     Console.WriteLine("Key pressed " + e.Code);
 };
 
+BreakOutGame gibb = new(window);
 
-GameObjectHandler slopparGibbet = new(window);
-Paddle paddlaren = new(slopparGibbet);
-Ball boll = new(slopparGibbet);
 
 Clock clock = new Clock();
 while (window.IsOpen)
 {
     window.DispatchEvents();
+    window.Clear(Color.Black);
 
     float deltaTime = clock.Restart().AsSeconds();
+    gibb.Update(deltaTime);
+    gibb.Draw();
 
-    window.Clear(Color.Black);
-    slopparGibbet.GibbGubb(deltaTime);
+    //detta kanske inte funkar
+    if(gibb.health <= 0)
+    {
+        gibb = new(window);
+    }
 
     window.Display();
 }
