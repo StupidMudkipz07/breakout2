@@ -1,16 +1,17 @@
 class Ball : GameObject, IMovable, ICollidable
 {
-
     float speed = 500;
     const float radius = 25;
     const float diameter = radius * 2;
+    Vector2f startPos = new();
     Vector2f direction = new(-67, 67);
+    GameObjectHandler gibbObjectHandler;
 
-    public GameObjectHandler gibbObjectHandler;
+    public event EventHandler BallLeftScreen;
 
-    public Ball(GameObjectHandler h) : base(h)
+    public Ball(Vector2f startPos, GameObjectHandler h) : base(h)
     {
-        pos = new(BreakOutGame.windowWidth / 2, 100);
+        this.startPos = startPos;
         sprite = new Sprite();
         sprite.Texture = new Texture("assets/ball.png");
         sprite.Position = new Vector2f(250, 300);
@@ -18,16 +19,26 @@ class Ball : GameObject, IMovable, ICollidable
         direction = RandomDirection();
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(diameter / sprite.Texture.Size.X, diameter / sprite.Texture.Size.Y);
+        Reset();
+    }
+
+    public void Reset()
+    {
+        //put on paddle maybe 
+        pos = startPos;
+        direction = RandomDirection();
     }
 
     Vector2f RandomDirection()
     {
         Random rnd = new();
-        int angle = rnd.Next(0, 360); 
+        int angle = rnd.Next(0, 360);
         //Maybe guarantee that ball goes downwards?
         Vector2f slop = new((float)Math.Cos(angle), (float)Math.Sin(angle));
         return slop;
     }
+
+    Vector2f Reflect(Vector2f normalizedVector, Vector2f direction) => direction -= normalizedVector * (2 * (direction.X * normalizedVector.X + direction.Y * normalizedVector.Y));
 
     public override void Update(float deltaTime)
     {
@@ -46,11 +57,11 @@ class Ball : GameObject, IMovable, ICollidable
             }
         }
         ((IMovable)this).MoveObject(ref pos, ((IMovable)this).CalculateMoveVector(direction, speed * deltaTime));
-    }
 
-    public Vector2f Reflect(Vector2f normalizedVector, Vector2f direction)
-    {
-        return direction -= normalizedVector * (2 * (direction.X * normalizedVector.X + direction.Y * normalizedVector.Y));
+        if (pos.Y > BreakOutGame.windowHeight + radius)
+        {
+            BallLeftScreen?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void OnCollide(ICollidable collidable)
@@ -64,5 +75,4 @@ class Ball : GameObject, IMovable, ICollidable
         //orka fixa sprite grejer Det kan du göra arvid
         target.Draw(sprite);
     }
-
 }

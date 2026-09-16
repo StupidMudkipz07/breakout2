@@ -1,5 +1,8 @@
 class Block : GameObject, ICollidable
 {
+    Random rnd = new();
+    int countDown;
+
     public Block(Vector2f size, Vector2f startPos, string spriteFilePath, GameObjectHandler h) : base(h)
     {
 
@@ -10,11 +13,52 @@ class Block : GameObject, ICollidable
         sprite.Position = pos;
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
+        countDown = 600 * rnd.Next(1, 5);
     }
 
     public override void Update(float deltaTime)
     {
+        countDown--;
+        if (countDown == 0)
+        {
+            string filePath = "assets/";
+            int slop = rnd.Next(0, 8);
+            switch (slop)
+            {
+                case 0:
+                    filePath += "adolf kirk.png";
+                    break;
+                case 1:
+                    filePath += "binding.png";
+                    break;
+                case 2:
+                    filePath += "mcnutt.png";
+                    break;
+                case 3:
+                    filePath += "zamn.png";
+                    break;
+                case 4:
+                    filePath += "math.png";
+                    break;
+                case 5:
+                    filePath += "flower.png";
+                    break;
+                case 6:
+                    filePath += "thumbnail.png";
+                    break;
+                case 7:
+                    filePath += "trobbio.png";
+                    break;
 
+            }
+            countDown = 600 * rnd.Next(1, 5);
+            sprite.Texture = new Texture(filePath);
+
+            //sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
+            //sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
+            sprite.Position = pos;
+
+        }
     }
 
     public void OnCollide(ICollidable collidable)

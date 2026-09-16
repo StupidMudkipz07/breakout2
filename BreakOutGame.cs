@@ -60,7 +60,15 @@ class BreakOutGame
         denLustigaSkärmen = window;
         handler = new();
 
-        boll = new(handler);
+        boll = new(new(windowWidth / 2, playHeight / 2), handler);
+
+        //när bollen når utanför skärmen så kallas detta event
+        boll.BallLeftScreen += (_, _) =>
+        {
+            health--;
+            boll.Reset();
+        };
+
 
         MakeBoundaries(900, 1020);
         paddel = new(windowHeight - 140, handler);
