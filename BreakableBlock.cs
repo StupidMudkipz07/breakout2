@@ -1,12 +1,11 @@
-class Block : GameObject, ICollidable
+class BreakableBlock : GameObject, ICollidable
 {
-    public Block(Vector2f size, Vector2f startPos, string spriteFilePath, GameObjectHandler h) : base(h)
+    public BreakableBlock(Vector2f size, Vector2f startPos, GameObjectHandler h) : base(h)
     {
-
         this.size = size;
         pos = startPos;
         sprite = new Sprite();
-        if (spriteFilePath == "") sprite.Texture = new Texture("assets/mcnutt.png"); else sprite.Texture = new Texture(spriteFilePath);
+        sprite.Texture = new Texture("assets/tileBlue.png");
         sprite.Position = pos;
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
