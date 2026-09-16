@@ -1,5 +1,8 @@
 class BreakOutGame
 {
+    static public uint windowWidth = 1920;
+    static public uint windowHeight = 1080;
+
     public int points = 0;
     public int health = 3;
     GameObjectHandler gameObjectHandler;
@@ -29,11 +32,12 @@ class BreakOutGame
     public void Draw()
     {
         gameObjectHandler.Draw(denLustigaSkärmen);
-        
+
         Gui.DisplayedString = $"Health: {health}";
         Gui.Position = new Vector2f(12, 8);
         Gui.DisplayedString = $"Score: {points}";
         Gui.Position = new Vector2f(12, 8);
+
     }
 
 }

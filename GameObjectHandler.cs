@@ -1,6 +1,7 @@
 class GameObjectHandler
 {
     public List<GameObject> GameList = new();
+    
 
     //updates all objects
     public void GibbGubb(float deltaTime)

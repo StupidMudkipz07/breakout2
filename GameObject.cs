@@ -2,7 +2,7 @@ abstract class GameObject
 {
     abstract public void Update(float deltaTime);
     abstract public void TheBigD(RenderTarget targetWindow);
-
+    public Sprite sprite;
     public bool remove;
 
     protected Vector2f pos = new();
@@ -10,6 +10,8 @@ abstract class GameObject
 
     public Vector2f Position => pos;
     public Vector2f Size => size;
+
+
 
     public GameObject(GameObjectHandler h)
     {
