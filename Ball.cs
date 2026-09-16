@@ -1,9 +1,9 @@
 class Ball : GameObject, IMovable, ICollidable
 {
 
-    float speed = 400;
+    float speed = 500;
     const float radius = 25;
-    const float diamiter = radius * 2;
+    const float diameter = radius * 2;
     Vector2f direction = new(-67, 67);
 
     public GameObjectHandler gibbObjectHandler;
@@ -15,9 +15,18 @@ class Ball : GameObject, IMovable, ICollidable
         sprite.Texture = new Texture("assets/ball.png");
         sprite.Position = new Vector2f(250, 300);
         gibbObjectHandler = h;
-
+        direction = RandomDirection();
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
-        sprite.Scale = new Vector2f(diamiter / sprite.Texture.Size.X, diamiter / sprite.Texture.Size.Y);
+        sprite.Scale = new Vector2f(diameter / sprite.Texture.Size.X, diameter / sprite.Texture.Size.Y);
+    }
+
+    Vector2f RandomDirection()
+    {
+        Random rnd = new();
+        int angle = rnd.Next(0, 360); 
+        //Maybe guarantee that ball goes downwards?
+        Vector2f slop = new((float)Math.Cos(angle), (float)Math.Sin(angle));
+        return slop;
     }
 
     public override void Update(float deltaTime)
@@ -35,8 +44,6 @@ class Ball : GameObject, IMovable, ICollidable
                 direction = Reflect(hitPos.Normalized(), direction);
                 //gibbObject.
             }
-
-
         }
         ((IMovable)this).MoveObject(ref pos, ((IMovable)this).CalculateMoveVector(direction, speed * deltaTime));
     }
@@ -57,6 +64,5 @@ class Ball : GameObject, IMovable, ICollidable
         //orka fixa sprite grejer Det kan du göra arvid
         target.Draw(sprite);
     }
-
 
 }

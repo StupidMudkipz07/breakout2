@@ -1,6 +1,6 @@
 class Paddle : GameObject, IMovable ,ICollidable
 {
-    float paddleMoveSpeed = 500;
+    float paddleMoveSpeed = 400;
 
     
     public Paddle(int height,GameObjectHandler h) : base(h)
@@ -14,7 +14,6 @@ class Paddle : GameObject, IMovable ,ICollidable
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);  
         sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
     }
-
 
     public void OnCollide(ICollidable collidable)
     {
@@ -32,7 +31,7 @@ class Paddle : GameObject, IMovable ,ICollidable
 
         ((IMovable)this).MoveObject(ref pos, direction * paddleMoveSpeed * deltaTime);
 
-        pos.X = Math.Clamp(pos.X, 0, BreakOutGame.windowWidth - size.X);
+        pos.X = Math.Clamp(pos.X, 0, BreakOutGame.windowWidth);
     }
 
     public override void TheBigD(RenderTarget targetWindow)
