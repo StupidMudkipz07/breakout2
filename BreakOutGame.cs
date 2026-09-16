@@ -1,7 +1,7 @@
 class BreakOutGame
 {
-    static public uint windowWidth = 1920;
-    static public uint windowHeight = 1080;
+    static public int windowWidth = 1920;
+    static public int windowHeight = 1080;
 
     public int points = 0;
     public int health = 3;
@@ -17,54 +17,35 @@ class BreakOutGame
     void MakeBoundaries()
     {
         //math
-
-
         uint mcnuttWidth = 500;
 
+        boundaries[0] = MakeBlock(new(0, 0), new(mcnuttWidth, windowHeight));
 
-        // Vector2f siz = new(mcnuttWidth, windowHeight);
-        // uint x = mcnuttWidth - mcnuttWidth / 2;
-        // uint y = windowHeight - windowHeight / 2;
+        boundaries[1] = MakeBlock(new(windowWidth - mcnuttWidth, 0), new(mcnuttWidth, windowHeight));
 
+        boundaries[2] = MakeBlock(new(mcnuttWidth, 0), new(windowWidth - (mcnuttWidth * 2), 40));
 
-        Vector2f siz = new(mcnuttWidth, windowHeight);
-        Vector2f pos = originOffset(new(0,0),siz);
-
-        boundaries[0] = new(siz, pos, "", handler);
-
-        // Vector2f siz2 = new(mcnuttWidth, windowHeight);
-        // uint x2 = windowWidth - mcnuttWidth + (mcnuttWidth - mcnuttWidth / 2);
-        // uint y2 = windowHeight - windowHeight / 2;
-
-        Vector2f siz2 = new(mcnuttWidth, windowHeight);
-        Vector2f pos2 = originOffset(new(windowWidth-mcnuttWidth,0),siz);
-
-        boundaries[1] = new(siz2, pos2, "", handler);
-
-        Vector2f siz3 = new(windowWidth - (mcnuttWidth * 2), 10);
-        uint x3 = mcnuttWidth + (uint)siz3.X / 2;
-        uint y3 = windowHeight - windowHeight / 2;
-
-        boundaries[2] = new(siz3, new(x3, y3), "assets/tileGreen.png", handler);
-
-
+        //boundaries[3] = MakeBlock(new(mcnuttWidth, windowHeight - 40), new(windowWidth - (mcnuttWidth * 2), 40));
     }
 
-    Vector2f originOffset(Vector2f desiredPos, Vector2f size)
+    Vector2f OriginOffset(Vector2f desiredPos, Vector2f size)
     {
         return desiredPos + (size / 2);
     }
 
-    
+    Block MakeBlock(Vector2f pos, Vector2f size) => new(size, OriginOffset(pos, size), "", handler);
+
+    Block MakeBlock(Vector2f pos, Vector2f size, string sprite) => new(size, OriginOffset(pos, size), sprite, handler);
 
     public BreakOutGame(RenderWindow window)
     {
         denLustigaSkärmen = window;
         handler = new();
-        paddel = new(handler);
+
         boll = new(handler);
 
         MakeBoundaries();
+        paddel = new(windowHeight - 140, handler);
         Gui = new Text
         {
             CharacterSize = 24,

@@ -1,6 +1,6 @@
 class BreakableBlock : GameObject, ICollidable
 {
-    public BreakableBlock(Vector2f size, Vector2f startPos, GameObjectHandler h) : base(h)
+    public BreakableBlock( Vector2f size,Vector2f startPos, GameObjectHandler h) : base(h)
     {
         this.size = size;
         pos = startPos;

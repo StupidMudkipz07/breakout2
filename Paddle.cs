@@ -3,10 +3,10 @@ class Paddle : GameObject, IMovable ,ICollidable
     float paddleMoveSpeed = 500;
 
     
-    public Paddle(GameObjectHandler h) : base(h)
+    public Paddle(int height,GameObjectHandler h) : base(h)
     {
         size = new(220, 53);
-        pos = new(BreakOutGame.windowWidth/2, 600);
+        pos = new(BreakOutGame.windowWidth/2, height);
         sprite = new Sprite();
         sprite.Texture = new Texture("assets/paddle.png");
         sprite.Position = pos;

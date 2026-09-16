@@ -7,7 +7,7 @@ global using SFML.Window;
 //LD_LIBRARY_PATH="$HOME/Documents/programming/breakout2/bin/Debug/net10.0/runtimes/debian-x64/native:$LD_LIBRARY_PATH" dotnet run
 //viktigt för linux
 
-RenderWindow window = new(new VideoMode(BreakOutGame.windowWidth, BreakOutGame.windowHeight), "Sloppa gibbaren");
+RenderWindow window = new(new VideoMode((uint)BreakOutGame.windowWidth, (uint)BreakOutGame.windowHeight), "Sloppa gibbaren");
 
 window.SetFramerateLimit(600);
 
@@ -33,7 +33,7 @@ while (window.IsOpen)
     gibb.DrawStuff();
 
     //detta kanske inte funkar
-    if(gibb.health <= 0)
+    if (gibb.health <= 0)
     {
         gibb = new(window);
     }
