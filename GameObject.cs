@@ -11,8 +11,6 @@ abstract class GameObject
     public Vector2f Position => pos;
     public Vector2f Size => size;
 
-
-
     public GameObject(GameObjectHandler h)
     {
         h.GameList.Add(this);

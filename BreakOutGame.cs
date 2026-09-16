@@ -5,18 +5,21 @@ class BreakOutGame
 
     public int points = 0;
     public int health = 3;
-    GameObjectHandler gameObjectHandler;
+    GameObjectHandler handler;
     Ball boll;
     Paddle paddel;
     Text Gui;
+    //List<Block> blocks = new();
+    Block blocks;
     public RenderWindow denLustigaSkärmen;
 
     public BreakOutGame(RenderWindow window)
     {
         denLustigaSkärmen = window;
-        gameObjectHandler = new();
-        boll = new(gameObjectHandler);
-        paddel = new(gameObjectHandler);
+        handler = new();
+        boll = new(handler);
+        paddel = new(handler);
+        blocks = new(handler);
         Gui = new Text
         {
             CharacterSize = 24,
@@ -26,18 +29,19 @@ class BreakOutGame
 
     public void Update(float deltaTime)
     {
-        gameObjectHandler.GibbGubb(deltaTime);
+        handler.GibbGubb(deltaTime);
     }
 
-    public void Draw()
+    public void DrawStuff()
     {
-        gameObjectHandler.Draw(denLustigaSkärmen);
+        handler.Draw(denLustigaSkärmen);
 
         Gui.DisplayedString = $"Health: {health}";
         Gui.Position = new Vector2f(12, 8);
+        denLustigaSkärmen.Draw(Gui);
         Gui.DisplayedString = $"Score: {points}";
-        Gui.Position = new Vector2f(12, 8);
-
+        Gui.Position = new Vector2f(windowWidth - 170, 8);
+        denLustigaSkärmen.Draw(Gui);
     }
 
 }

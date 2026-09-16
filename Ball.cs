@@ -1,47 +1,47 @@
 class Ball : GameObject, IMovable, ICollidable
 {
-   
-    float speed = 100;
+
+    float speed = 400;
     const float radius = 25;
     const float diamiter = radius * 2;
+    Vector2f direction = new(-67, 67);
 
     public GameObjectHandler gibbObjectHandler;
 
     public Ball(GameObjectHandler h) : base(h)
     {
+        pos = new(BreakOutGame.windowWidth / 2, 100);
         sprite = new Sprite();
         sprite.Texture = new Texture("assets/ball.png");
         sprite.Position = new Vector2f(250, 300);
-        pos = new(800, 800);
         gibbObjectHandler = h;
 
-        sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);  
+        sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(diamiter / sprite.Texture.Size.X, diamiter / sprite.Texture.Size.Y);
     }
 
     public override void Update(float deltaTime)
     {
-        Vector2f direction = new(250, -250);
-        //direction.Normalized();
-        
         foreach (GameObject gibbObject in gibbObjectHandler.GameList)
         {
             if (gibbObject.sprite == sprite)
-                continue;
+                continue; //skip its own sprite
 
             if (Collision.CircleRectangle(pos, radius, gibbObject.Position, gibbObject.Size, out Vector2f hitPos))
             {
                 pos += hitPos;
-                
+
+                //System.Console.WriteLine(direction);
                 direction = Reflect(hitPos.Normalized(), direction);
+                //gibbObject.
+            }
 
-            }    
+
         }
-
         ((IMovable)this).MoveObject(ref pos, ((IMovable)this).CalculateMoveVector(direction, speed * deltaTime));
     }
 
-    public Vector2f Reflect(Vector2f normalizedVector, Vector2f direction) 
+    public Vector2f Reflect(Vector2f normalizedVector, Vector2f direction)
     {
         return direction -= normalizedVector * (2 * (direction.X * normalizedVector.X + direction.Y * normalizedVector.Y));
     }

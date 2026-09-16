@@ -3,8 +3,6 @@ global using SFML.Audio;
 global using SFML.System;
 global using SFML.Window;
 
-
-
 //sloppar kommandot ta inte bort!!!!!
 //LD_LIBRARY_PATH="$HOME/Documents/programming/breakout2/bin/Debug/net10.0/runtimes/debian-x64/native:$LD_LIBRARY_PATH" dotnet run
 //viktigt för linux
@@ -32,15 +30,12 @@ while (window.IsOpen)
 
     float deltaTime = clock.Restart().AsSeconds();
     gibb.Update(deltaTime);
-    gibb.Draw();
+    gibb.DrawStuff();
 
     //detta kanske inte funkar
     if(gibb.health <= 0)
     {
         gibb = new(window);
     }
-
     window.Display();
 }
-
-

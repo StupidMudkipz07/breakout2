@@ -6,7 +6,7 @@ class Paddle : GameObject, IMovable ,ICollidable
     public Paddle(GameObjectHandler h) : base(h)
     {
         size = new(220, 53);
-        pos = new(600, 500);
+        pos = new(BreakOutGame.windowWidth/2, 600);
         sprite = new Sprite();
         sprite.Texture = new Texture("assets/paddle.png");
         sprite.Position = pos;
