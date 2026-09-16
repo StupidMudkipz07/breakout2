@@ -10,6 +10,7 @@ class BreakOutGame
 
     public BreakOutGame(RenderWindow window)
     {
+        denLustigaSkärmen = window;
         gameObjectHandler = new();
         boll = new(gameObjectHandler);
         paddel = new(gameObjectHandler);

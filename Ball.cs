@@ -4,6 +4,9 @@ class Ball : GameObject, IMovable, ICollidable
 
     float speed = 500;
 
+    const float radius = 10;
+    const float diamiter = radius * 2;
+
     public Ball(GameObjectHandler h) : base(h)
     {
         sprite = new Sprite();
@@ -15,7 +18,7 @@ class Ball : GameObject, IMovable, ICollidable
 
     public override void Update(float deltaTime)
     {
-
+        
         Vector2f direction = new(500, 1);
 
         ((IMovable)this).MoveObject(ref pos, ((IMovable)this).CalculateMoveVector(direction, speed * deltaTime));
