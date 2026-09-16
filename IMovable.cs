@@ -1,7 +1,14 @@
 interface IMovable
 {
-    protected void Move(Vector2f position, Vector2f velocity)
+    public Vector2f CalculateMoveVector(Vector2f direction, float velocity)
     {
-        position += velocity;
+        direction = Collision.Normalized(direction);
+        return direction * velocity;
+    }
+
+    public void MoveObject(ref Vector2f pos, Vector2f vectorToApply)
+    {
+        pos += vectorToApply;
+        //add collision script here: maybe not
     }
 }

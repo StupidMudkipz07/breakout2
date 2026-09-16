@@ -1,6 +1,7 @@
-class Paddle : GameObject
+class Paddle : GameObject, IMovable ,ICollidable
 {
     public Sprite sprite;
+    float speed = 500;
 
     RectangleShape rectangle = new();
 
@@ -12,8 +13,12 @@ class Paddle : GameObject
         sprite = new Sprite();
         sprite.Texture = new Texture("assets/paddle.png");
         sprite.Position = pos;
+    }
 
-      
+
+    public void OnCollide(ICollidable collidable)
+    {
+
     }
 
     public override void Update(float deltaTime)
@@ -25,9 +30,11 @@ class Paddle : GameObject
         if (KeyboardHandler.IsKeyDown(Keyboard.Key.D))
             direction.X += 1;
 
-        pos += direction * 500 * deltaTime;
+        ((IMovable)this).MoveObject(ref pos, direction * speed * deltaTime);
 
-        pos.X = Math.Clamp(pos.X, 0, 1000 - size.X);
+        //pos += direction * 500 * deltaTime;
+
+        pos.X = Math.Clamp(pos.X, 0, 1920 - size.X);
     }
 
     public override void TheBigD(RenderTarget targetWindow)
@@ -35,7 +42,7 @@ class Paddle : GameObject
         sprite.Position = pos;
         rectangle.Position = pos;
         //orka fixa sprite grejer Det kan du göra arvid
-       // targetWindow.Draw(sprite);
+        // targetWindow.Draw(sprite);
         targetWindow.Draw(rectangle);
     }
 }

@@ -1,7 +1,8 @@
-class Ball : GameObject
+class Ball : GameObject, IMovable, ICollidable
 {
     public Sprite sprite;
 
+    float speed = 500;
 
     public Ball(GameObjectHandler h) : base(h)
     {
@@ -14,11 +15,15 @@ class Ball : GameObject
 
     public override void Update(float deltaTime)
     {
-        Vector2f direction = new Vector2f(0, 0);
-        direction = new(1,1);
 
+        Vector2f direction = new(500, 1);
 
-        pos += direction * 500 * deltaTime;
+        ((IMovable)this).MoveObject(ref pos, ((IMovable)this).CalculateMoveVector(direction, speed * deltaTime));
+    }
+
+    public void OnCollide(ICollidable collidable)
+    {
+
     }
 
     public override void TheBigD(RenderTarget target)
