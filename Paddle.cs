@@ -42,7 +42,7 @@ class Paddle : GameObject, IMovable ,ICollidable
         sprite.Position = pos;
         rectangle.Position = pos;
         //orka fixa sprite grejer Det kan du göra arvid
-        // targetWindow.Draw(sprite);
-        targetWindow.Draw(rectangle);
+        targetWindow.Draw(sprite);
+        //targetWindow.Draw(rectangle);
     }
 }
