@@ -7,7 +7,7 @@ global using SFML.Window;
 //LD_LIBRARY_PATH="$HOME/Documents/programming/breakout2/bin/Debug/net10.0/runtimes/debian-x64/native:$LD_LIBRARY_PATH" dotnet run
 //viktigt för linux
 
-RenderWindow window = new(new VideoMode((uint)BreakOutGame.windowWidth, (uint)BreakOutGame.windowHeight), "Sloppa gibbaren");
+RenderWindow window = new(new VideoMode((uint)BreakOutGame.windowWidth, (uint)BreakOutGame.windowHeight), "AdolfKirk out");
 
 window.SetFramerateLimit(600);
 

@@ -50,17 +50,20 @@ class Ball : GameObject, IMovable, ICollidable
             if (Collision.CircleRectangle(pos, radius, gibbObject.Position, gibbObject.Size, out Vector2f hitPos))
             {
                 pos += hitPos;
-
-                //System.Console.WriteLine(direction);
                 direction = Reflect(hitPos.Normalized(), direction);
-                //gibbObject.
+
+                if (gibbObject is BreakableBlock)
+                {
+                    BreakableBlock b = gibbObject as BreakableBlock;
+                    b.BigDieOOOOOOOOof();
+                }
             }
         }
         ((IMovable)this).MoveObject(ref pos, ((IMovable)this).CalculateMoveVector(direction, speed * deltaTime));
 
         if (pos.Y > BreakOutGame.windowHeight + radius)
         {
-            BallLeftScreen?.Invoke(this, EventArgs.Empty);
+            BallLeftScreen.Invoke(this, EventArgs.Empty);
         }
     }
 

@@ -3,8 +3,14 @@ class BreakOutGame
     static public int windowWidth = 1920;
     static public int windowHeight = 1080;
 
-    public const int playWidth = 1000;
-    public const int playHeight = 1060;
+    public static int playWidth = 1000;
+    public static int playHeight = 1050;
+
+
+    public static int tileWidth = 100;
+    public static int amountOfRows = 6;
+    public static int rows = 6;
+
 
     public int points = 0;
     public int health = 3;
@@ -21,6 +27,7 @@ class BreakOutGame
         denLustigaSkärmen = window;
         handler = new();
 
+
         boll = new(new(windowWidth / 2, playHeight / 2), handler);
 
         //när bollen når utanför skärmen så kallas detta event
@@ -32,7 +39,7 @@ class BreakOutGame
 
         MakeBoundaries();
 
-        MakeTiles(100, 7, 6);
+        MakeTiles(tileWidth, amountOfRows, rows);
         paddel = new(windowHeight - 140, handler);
         Gui = new Text
         {
@@ -41,7 +48,6 @@ class BreakOutGame
         };
     }
 
-    // make scalable
     void MakeTiles(int tileWidth, int amountPerRow, int rows)
     {
         //math
@@ -98,11 +104,31 @@ class BreakOutGame
 
     Block MakeBlock(Vector2f pos, Vector2f size, string sprite) => new(size, OriginOffset(pos, size), sprite, handler);
 
-    BreakableBlock MakeBreakableBlock(Vector2f pos, Vector2f size, string color) => new(size, OriginOffset(pos, size), color, handler);
+    BreakableBlock MakeBreakableBlock(Vector2f pos, Vector2f size, string color)
+    {
+        BreakableBlock båt = new(size, OriginOffset(pos, size), color, handler);
+        tiles.Add(båt);
+        båt.BlockBreaked += (_, _) =>
+        {
+            points++;
+            //om inte den här finns så finns den fortfarande kvar i tiles och då resettas inte tilesen inte
+            tiles.Remove(båt);
+        };
+        return båt;
+    }
+
+    void CheckTiles()
+    {
+        if (tiles.Count == 0)
+        {
+            MakeTiles(tileWidth, amountOfRows, rows);
+        }
+    }
 
     public void Update(float deltaTime)
     {
         handler.GibbGubb(deltaTime);
+        CheckTiles();
     }
 
     public void DrawStuff()

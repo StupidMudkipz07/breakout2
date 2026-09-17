@@ -55,12 +55,15 @@ class Block : GameObject, ICollidable
 
             }
             countDown = 600 * rnd.Next(1, 5);
-            sprite.Texture = new Texture(filePath);
 
-            //sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
-            //sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
-            sprite.Position = pos;
 
+            Sprite båt = new();
+            båt.Texture = new Texture(filePath);
+            båt.Position = pos;
+            båt.Origin = (Vector2f)(båt.Texture.Size / 2);
+            båt.Scale = new Vector2f(Size.X / båt.Texture.Size.X, Size.Y / båt.Texture.Size.Y);
+
+            sprite = båt;
         }
     }
 
