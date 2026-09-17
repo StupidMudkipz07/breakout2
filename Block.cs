@@ -23,6 +23,7 @@ class Block : GameObject, ICollidable
         if (countDown == 0)
         {
             ChangeSprite();
+            coolDown = 600 * rnd.Next(1, 5);
             countDown = coolDown;
         }
 
