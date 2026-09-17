@@ -32,7 +32,7 @@ class Ball : GameObject, IMovable, ICollidable
     Vector2f RandomDirection()
     {
         Random rnd = new();
-        int angle = rnd.Next(0, 360);
+        int angle = rnd.Next(0, 180);
         //Maybe guarantee that ball goes downwards?
         Vector2f slop = new((float)Math.Cos(angle), (float)Math.Sin(angle));
         return slop;
@@ -40,8 +40,29 @@ class Ball : GameObject, IMovable, ICollidable
 
     Vector2f Reflect(Vector2f normalizedVector, Vector2f direction) => direction -= normalizedVector * (2 * (direction.X * normalizedVector.X + direction.Y * normalizedVector.Y));
 
+    bool IsNotAdolf = false;
+
     public override void Update(float deltaTime)
     {
+        if (!IsNotAdolf)
+        {
+            foreach (GameObject gibbObject in gibbObjectHandler.GameList)
+            {
+                if (gibbObject is Paddle)
+                {
+                    Paddle p = gibbObject as Paddle;
+                    Start(p);
+                }
+            }
+
+            if (KeyboardHandler.WasKeyJustDown(Keyboard.Key.Space))
+            {
+                IsNotAdolf = true;
+            }
+
+            return;
+        }
+
         foreach (GameObject gibbObject in gibbObjectHandler.GameList)
         {
             if (gibbObject.sprite == sprite)
@@ -64,13 +85,16 @@ class Ball : GameObject, IMovable, ICollidable
         if (pos.Y > BreakOutGame.windowHeight + radius)
         {
             BallLeftScreen.Invoke(this, EventArgs.Empty);
+            IsNotAdolf = false;
         }
     }
 
-    public void OnCollide(ICollidable collidable)
+    public void Start(Paddle paddel)
     {
-
+        pos = new Vector2f(paddel.Position.X, paddel.Position.Y - 75);
     }
+
+    public void OnCollide(ICollidable collidable) {}
 
     public override void TheBigD(RenderTarget target)
     {
