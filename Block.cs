@@ -2,7 +2,7 @@ class Block : GameObject, ICollidable
 {
     Random rnd = new();
     int countDown;
-
+    int coolDown;
     public Block(Vector2f size, Vector2f startPos, string spriteFilePath, GameObjectHandler h) : base(h)
     {
 
@@ -13,22 +13,19 @@ class Block : GameObject, ICollidable
         sprite.Position = pos;
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
-        countDown = 600 * rnd.Next(1, 5);
+        coolDown = 600 * rnd.Next(1, 5);
+        countDown = coolDown;
     }
 
     public override void Update(float deltaTime)
     {
-        DoThingOnCooldown(ref countDown, countDown = 600 * rnd.Next(1, 5), ChangeSprite);
-    }
-
-    protected void DoThingOnCooldown(ref int timer, int cool, Action function)
-    {
         countDown--;
         if (countDown == 0)
         {
-            function();
-            timer = cool;
+            ChangeSprite();
+            countDown = coolDown;
         }
+
     }
 
     protected void ChangeSprite()
