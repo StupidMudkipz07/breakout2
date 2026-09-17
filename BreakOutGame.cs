@@ -3,8 +3,8 @@ class BreakOutGame
     static public int windowWidth = 1920;
     static public int windowHeight = 1080;
 
-    static public int playWidth = 900;
-    static public int playHeight = 1020;
+    public const int playWidth = 1000;
+    public const int playHeight = 1060;
 
     public int points = 0;
     public int health = 3;
@@ -12,31 +12,93 @@ class BreakOutGame
     Ball boll;
     Paddle paddel;
     Text Gui;
-    //List<Block> blocks = new();
     Block[] boundaries = new Block[4];
     List<BreakableBlock> tiles = new();
     public RenderWindow denLustigaSkärmen;
 
-    void MakeBoundaries(int PlayWidth, int playHeight)
+    public BreakOutGame(RenderWindow window)
+    {
+        denLustigaSkärmen = window;
+        handler = new();
+
+        boll = new(new(windowWidth / 2, playHeight / 2), handler);
+
+        //när bollen når utanför skärmen så kallas detta event
+        boll.BallLeftScreen += (_, _) =>
+        {
+            health--;
+            boll.Reset();
+        };
+
+        MakeBoundaries();
+
+        MakeTiles(100, 7, 6);
+        paddel = new(windowHeight - 140, handler);
+        Gui = new Text
+        {
+            CharacterSize = 45,
+            Font = new Font("assets/future.ttf")
+        };
+    }
+
+    // make scalable
+    void MakeTiles(int tileWidth, int amountPerRow, int rows)
     {
         //math
-        int mcnuttWidth = (windowWidth - PlayWidth) / 2;
+        int amountOfTilesPerColumn = amountPerRow;
+        int GapBetweenTiles = (playWidth - amountOfTilesPerColumn * tileWidth) / (amountOfTilesPerColumn + 1);
+
+        int tileHeight = tileWidth / 2;
+        int rowGap = 67;
+
+
+        Vector2f playSpaceOrigin = new((windowWidth - playWidth) / 2, windowHeight - playHeight);
+
+        for (int i = 0; i < rows; i++)
+        {
+            //generate tiles for each column
+            for (int j = 0; j < amountOfTilesPerColumn; j++)
+            { //
+                Vector2f positon = new(playSpaceOrigin.X + (j * tileWidth) + (GapBetweenTiles * (j + 1)), playSpaceOrigin.Y + rowGap * (i + 1));
+                Vector2f tileSize = new(tileWidth, tileHeight);
+                string color = "";
+                switch (i % 3)
+                {
+                    case 0:
+                        color += "Pink";
+                        break;
+                    case 1:
+                        color += "Green";
+                        break;
+
+                    case 2:
+                        color += "Blue";
+                        break;
+                }
+                MakeBreakableBlock(positon, tileSize, color);
+            }
+        }
+    }
+
+    void MakeBoundaries()
+    {
+        //math
+        int mcnuttWidth = (windowWidth - playWidth) / 2;
         int mcnuttHeight = windowHeight - playHeight;
 
-        boundaries[0] = MakeBlock(new(0, 0), new(mcnuttWidth, windowHeight), "");
+        boundaries[0] = MakeBlock(new(0, 0), new(mcnuttWidth, windowHeight));
         boundaries[1] = MakeBlock(new(windowWidth - mcnuttWidth, 0), new(mcnuttWidth, windowHeight), "assets/binding.png");
         boundaries[2] = MakeBlock(new(mcnuttWidth, 0), new(windowWidth - (mcnuttWidth * 2), mcnuttHeight), "assets/math.png");
         //boundaries[3] = MakeBlock(new(mcnuttWidth, windowHeight - 40), new(windowWidth - (mcnuttWidth * 2), 40));
     }
 
-    Vector2f OriginOffset(Vector2f desiredPos, Vector2f size)
-    {
-        return desiredPos + (size / 2);
-    }
+    Vector2f OriginOffset(Vector2f desiredPos, Vector2f size) => desiredPos + (size / 2);
 
     Block MakeBlock(Vector2f pos, Vector2f size) => new(size, OriginOffset(pos, size), "", handler);
 
     Block MakeBlock(Vector2f pos, Vector2f size, string sprite) => new(size, OriginOffset(pos, size), sprite, handler);
+
+    BreakableBlock MakeBreakableBlock(Vector2f pos, Vector2f size, string color) => new(size, OriginOffset(pos, size), color, handler);
 
     public void Update(float deltaTime)
     {
@@ -55,27 +117,5 @@ class BreakOutGame
         denLustigaSkärmen.Draw(Gui);
     }
 
-    public BreakOutGame(RenderWindow window)
-    {
-        denLustigaSkärmen = window;
-        handler = new();
 
-        boll = new(new(windowWidth / 2, playHeight / 2), handler);
-
-        //när bollen når utanför skärmen så kallas detta event
-        boll.BallLeftScreen += (_, _) =>
-        {
-            health--;
-            boll.Reset();
-        };
-
-
-        MakeBoundaries(900, 1020);
-        paddel = new(windowHeight - 140, handler);
-        Gui = new Text
-        {
-            CharacterSize = 45,
-            Font = new Font("assets/future.ttf")
-        };
-    }
 }

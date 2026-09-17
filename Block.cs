@@ -22,7 +22,7 @@ class Block : GameObject, ICollidable
         if (countDown == 0)
         {
             string filePath = "assets/";
-            int slop = rnd.Next(0, 8);
+            int slop = rnd.Next(0, 9);
             switch (slop)
             {
                 case 0:
@@ -48,6 +48,9 @@ class Block : GameObject, ICollidable
                     break;
                 case 7:
                     filePath += "trobbio.png";
+                    break;
+                case 8:
+                    filePath += "allt.png";
                     break;
 
             }
