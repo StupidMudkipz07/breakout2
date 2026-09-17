@@ -1,16 +1,17 @@
 class BreakOutGame
 {
+
+    static public int MaxFps = 600;
+    
     static public int windowWidth = 1920;
     static public int windowHeight = 1080;
 
     public static int playWidth = 1000;
     public static int playHeight = 1050;
 
-
     public static int tileWidth = 100;
     public static int amountOfRows = 6;
     public static int rows = 6;
-
 
     public int points = 0;
     public int health = 3;
@@ -111,7 +112,7 @@ class BreakOutGame
         båt.BlockBreaked += (_, _) =>
         {
             points++;
-            //om inte den här finns så finns den fortfarande kvar i tiles och då resettas inte tilesen inte
+            //om inte den här finns så finns den fortfarande kvar i tileslistan och då resettas inte tilesen 
             tiles.Remove(båt);
         };
         return båt;
@@ -144,4 +145,21 @@ class BreakOutGame
     }
 
 
+    static public void HiddenSlop()
+    {
+        // slop dialogue
+        Console.WriteLine("Hej kära spelare"); Console.ReadKey();
+        Console.WriteLine("Jag är spelledaren av detta spel"); Console.ReadKey();
+        Console.WriteLine("Jag har gjort spel i många år nu"); Thread.Sleep(300);
+        Console.WriteLine("Jag har även vunnit SM långfinger dragkamp"); Thread.Sleep(300);
+        Console.WriteLine("Och vet du vad?"); Thread.Sleep(300);
+        Console.WriteLine("Jag har även skapat en 1:1 kopia av Darth Vader av snorkråkor och öronvax i mitt gara..."); Thread.Sleep(300);
+        Console.WriteLine("juste"); Thread.Sleep(300);
+        Console.WriteLine("Det är inte jag som är huvudpersonen av denna berättelse"); Thread.Sleep(300);
+        Console.WriteLine("Det är du som är den viktiga nu!"); Thread.Sleep(300);
+        Console.WriteLine("Vad är ditt namn?"); Thread.Sleep(300);
+        Console.Write("Skriv ditt namn här:"); Console.ReadKey();
+        Console.WriteLine("Äsch strunta i det där"); Console.ReadKey();
+        Console.WriteLine("Nu spelar vi Adolf Kirk OUT!!!!!11"); Console.ReadKey();
+    }
 }

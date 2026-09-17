@@ -7,9 +7,14 @@ global using SFML.Window;
 //LD_LIBRARY_PATH="$HOME/Documents/programming/breakout2/bin/Debug/net10.0/runtimes/debian-x64/native:$LD_LIBRARY_PATH" dotnet run
 //viktigt för linux
 
-RenderWindow window = new(new VideoMode((uint)BreakOutGame.windowWidth, (uint)BreakOutGame.windowHeight), "AdolfKirk out");
+//hemligt 🤫🤫1
+BreakOutGame.HiddenSlop();
 
-window.SetFramerateLimit(600);
+RenderWindow window = new(new VideoMode((uint)BreakOutGame.windowWidth, (uint)BreakOutGame.windowHeight), "AdolfKirk out");
+BreakOutGame gibb = new(window);
+
+
+window.SetFramerateLimit((uint)BreakOutGame.MaxFps);
 
 window.Closed += (sender, e) => window.Close();
 //defines exit button and input debug
@@ -18,8 +23,6 @@ window.KeyPressed += (sender, e) =>
     //input debug
     Console.WriteLine("Key pressed " + e.Code);
 };
-
-BreakOutGame gibb = new(window);
 
 
 Clock clock = new Clock();
