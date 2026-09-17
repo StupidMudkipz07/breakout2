@@ -29,7 +29,7 @@ class BreakableBlock : GameObject, ICollidable
 
     public override void Update(float deltaTime)
     {
-
+        
     }
 
     public void OnCollide(ICollidable collidable)

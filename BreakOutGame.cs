@@ -1,6 +1,8 @@
 class BreakOutGame
 {
+    //state that doesnt change between tries
 
+    static public string[] difficulties;
     static public int MaxFps = 600;
     
     static public int windowWidth = 1920;
@@ -12,6 +14,8 @@ class BreakOutGame
     public static int tileWidth = 100;
     public static int amountOfRows = 6;
     public static int rows = 6;
+
+    //
 
     public int points = 0;
     public int health = 3;
@@ -147,17 +151,18 @@ class BreakOutGame
 
     static public void HiddenSlop()
     {
+        int wait = 150;
         // slop dialogue
         Console.WriteLine("Hej kära spelare"); Console.ReadKey();
         Console.WriteLine("Jag är spelledaren av detta spel"); Console.ReadKey();
-        Console.WriteLine("Jag har gjort spel i många år nu"); Thread.Sleep(300);
-        Console.WriteLine("Jag har även vunnit SM långfinger dragkamp"); Thread.Sleep(300);
-        Console.WriteLine("Och vet du vad?"); Thread.Sleep(300);
+        Console.WriteLine("Jag har gjort spel i många år nu"); Thread.Sleep(wait);
+        Console.WriteLine("Jag har även vunnit SM långfinger dragkamp"); Thread.Sleep(wait);
+        Console.WriteLine("Och vet du vad?"); Thread.Sleep(wait);
         Console.WriteLine("Jag har även skapat en 1:1 kopia av Darth Vader av snorkråkor och öronvax i mitt gara..."); Thread.Sleep(300);
-        Console.WriteLine("juste"); Thread.Sleep(300);
-        Console.WriteLine("Det är inte jag som är huvudpersonen av denna berättelse"); Thread.Sleep(300);
-        Console.WriteLine("Det är du som är den viktiga nu!"); Thread.Sleep(300);
-        Console.WriteLine("Vad är ditt namn?"); Thread.Sleep(300);
+        Console.WriteLine("juste"); Thread.Sleep(wait);
+        Console.WriteLine("Det är inte jag som är huvudpersonen av denna berättelse"); Thread.Sleep(wait);
+        Console.WriteLine("Det är du som är den viktiga nu!"); Thread.Sleep(wait);
+        Console.WriteLine("Vad är ditt namn?"); Thread.Sleep(wait);
         Console.Write("Skriv ditt namn här:"); Console.ReadKey();
         Console.WriteLine("Äsch strunta i det där"); Console.ReadKey();
         Console.WriteLine("Nu spelar vi Adolf Kirk OUT!!!!!11"); Console.ReadKey();

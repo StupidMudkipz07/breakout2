@@ -42,3 +42,5 @@ while (window.IsOpen)
     }
     window.Display();
 }
+
+window.Dispose();
