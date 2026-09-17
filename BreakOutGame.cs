@@ -27,6 +27,12 @@ class BreakOutGame
     List<BreakableBlock> tiles = new();
     public RenderWindow denLustigaSkärmen;
 
+    void BallEvent()
+    {
+        health--;
+        boll.Reset();
+    }
+
     public BreakOutGame(RenderWindow window)
     {
         denLustigaSkärmen = window;
@@ -36,11 +42,7 @@ class BreakOutGame
         boll = new(new(windowWidth / 2, playHeight / 2), paddel, handler);
 
         //när bollen når utanför skärmen så kallas detta event
-        boll.BallLeftScreen += (_, _) =>
-        {
-            health--;
-            boll.Reset();
-        };
+        boll.BallLeftScreen += (_, _) => { BallEvent(); };
 
         MakeBoundaries();
 
@@ -140,10 +142,11 @@ class BreakOutGame
     {
         handler.Draw(denLustigaSkärmen);
 
-        Gui.DisplayedString = $"Health: {health}";
+        Gui.DisplayedString = $"Score: {points}";
         Gui.Position = new Vector2f(12, 8);
         denLustigaSkärmen.Draw(Gui);
-        Gui.DisplayedString = $"Score: {points}";
+
+        Gui.DisplayedString = $"Health: {health}";
         Gui.Position = new Vector2f(windowWidth - 267, 8);
         denLustigaSkärmen.Draw(Gui);
     }

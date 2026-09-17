@@ -54,8 +54,6 @@ class Ball : GameObject, IMovable, ICollidable
             {
                 IsNotAdolf = true;
             }
-
-            return;
         }
 
         foreach (GameObject gibbObject in gibbObjectHandler.GameList)
