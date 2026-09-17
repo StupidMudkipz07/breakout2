@@ -147,7 +147,7 @@ class BreakOutGame
         denLustigaSkärmen.Draw(Gui);
 
         Gui.DisplayedString = $"Health: {health}";
-        Gui.Position = new Vector2f(windowWidth - 267, 8);
+        Gui.Position = new Vector2f(windowWidth - 300, 8);
         denLustigaSkärmen.Draw(Gui);
     }
 
@@ -166,7 +166,7 @@ class BreakOutGame
         Console.WriteLine("Det är inte jag som är huvudpersonen av denna berättelse"); Thread.Sleep(wait);
         Console.WriteLine("Det är du som är den viktiga nu!"); Thread.Sleep(wait);
         Console.WriteLine("Vad är ditt namn?"); Thread.Sleep(wait);
-        Console.Write("Skriv ditt namn här:"); Console.ReadKey();
+        Console.Write("Skriv ditt namn här:"); Console.ReadLine();
         Console.WriteLine("Äsch strunta i det där"); Console.ReadKey();
         Console.WriteLine("Nu spelar vi Adolf Kirk OUT!!!!!11"); Console.ReadKey();
     }
