@@ -4,7 +4,7 @@ class BreakOutGame
 
     static public string[] difficulties;
     static public int MaxFps = 600;
-    
+
     static public int windowWidth = 1920;
     static public int windowHeight = 1080;
 
@@ -31,9 +31,9 @@ class BreakOutGame
     {
         denLustigaSkärmen = window;
         handler = new();
+        paddel = new(windowHeight - 140, handler);
 
-
-        boll = new(new(windowWidth / 2, playHeight / 2), handler);
+        boll = new(new(windowWidth / 2, playHeight / 2), paddel, handler);
 
         //när bollen når utanför skärmen så kallas detta event
         boll.BallLeftScreen += (_, _) =>
@@ -45,7 +45,7 @@ class BreakOutGame
         MakeBoundaries();
 
         MakeTiles(tileWidth, amountOfRows, rows);
-        paddel = new(windowHeight - 140, handler);
+
         Gui = new Text
         {
             CharacterSize = 45,

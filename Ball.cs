@@ -6,10 +6,12 @@ class Ball : GameObject, IMovable, ICollidable
     Vector2f startPos = new();
     Vector2f direction = new(-67, 67);
     GameObjectHandler gibbObjectHandler;
+    Paddle paadel;
+    bool IsNotAdolf = false;
 
     public event EventHandler BallLeftScreen;
 
-    public Ball(Vector2f startPos, GameObjectHandler h) : base(h)
+    public Ball(Vector2f startPos, Paddle paddle, GameObjectHandler h) : base(h)
     {
         this.startPos = startPos;
         sprite = new Sprite();
@@ -19,6 +21,7 @@ class Ball : GameObject, IMovable, ICollidable
         direction = RandomDirection();
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(diameter / sprite.Texture.Size.X, diameter / sprite.Texture.Size.Y);
+        paadel = paddle;
         Reset();
     }
 
@@ -27,6 +30,7 @@ class Ball : GameObject, IMovable, ICollidable
         //put on paddle maybe 
         pos = startPos;
         direction = RandomDirection();
+        pos = new Vector2f(paadel.Position.X, paadel.Position.Y - 75);
     }
 
     Vector2f RandomDirection()
@@ -40,20 +44,11 @@ class Ball : GameObject, IMovable, ICollidable
 
     Vector2f Reflect(Vector2f normalizedVector, Vector2f direction) => direction -= normalizedVector * (2 * (direction.X * normalizedVector.X + direction.Y * normalizedVector.Y));
 
-    bool IsNotAdolf = false;
-
     public override void Update(float deltaTime)
     {
         if (!IsNotAdolf)
         {
-            foreach (GameObject gibbObject in gibbObjectHandler.GameList)
-            {
-                if (gibbObject is Paddle)
-                {
-                    Paddle p = gibbObject as Paddle;
-                    Start(p);
-                }
-            }
+            Reset();
 
             if (KeyboardHandler.WasKeyJustDown(Keyboard.Key.Space))
             {
@@ -89,12 +84,7 @@ class Ball : GameObject, IMovable, ICollidable
         }
     }
 
-    public void Start(Paddle paddel)
-    {
-        pos = new Vector2f(paddel.Position.X, paddel.Position.Y - 75);
-    }
-
-    public void OnCollide(ICollidable collidable) {}
+    public void OnCollide(ICollidable collidable) { }
 
     public override void TheBigD(RenderTarget target)
     {
