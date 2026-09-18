@@ -1,32 +1,38 @@
 class Block : GameObject, ICollidable
 {
-    Random rnd = new();
-    int countDown;
-    int coolDown;
+    protected Random rnd = new();
+    protected int countDown;
+    protected int coolDown() => (600 + rnd.Next(-67, +67)) * rnd.Next(1, 5);
+    public Action roligaGrejerAttGöra = () => { };
+
     public Block(Vector2f size, Vector2f startPos, string spriteFilePath, GameObjectHandler h) : base(h)
     {
 
         this.size = size;
         pos = startPos;
         sprite = new Sprite();
-        if (spriteFilePath == "") sprite.Texture = new Texture("assets/mcnutt.png"); else sprite.Texture = new Texture(spriteFilePath);
+
+        if (spriteFilePath == "") sprite.Texture = new Texture("assets/tileBlue.png"); else sprite.Texture = new Texture(spriteFilePath);
         sprite.Position = pos;
         sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
-        coolDown = 600 * rnd.Next(1, 5);
-        countDown = coolDown;
+        countDown = coolDown();
     }
 
     public override void Update(float deltaTime)
+    {
+        roligaGrejerAttGöra();
+        //ChangeSpriteOnCooldown();
+    }
+
+    public void ChangeSpriteOnCooldown()
     {
         countDown--;
         if (countDown == 0)
         {
             ChangeSprite();
-            coolDown = 600 * rnd.Next(1, 5);
-            countDown = coolDown;
+            countDown = coolDown();
         }
-
     }
 
     protected void ChangeSprite()
@@ -74,6 +80,21 @@ class Block : GameObject, ICollidable
         båt.Scale = new Vector2f(Size.X / båt.Texture.Size.X, Size.Y / båt.Texture.Size.Y);
 
         sprite = båt;
+    }
+
+    public void SpawnSlopWindow()
+    {
+        // din using grej hade varit bra här
+        Sprite slop = new();
+        slop.Texture = sprite.Texture;
+        Vector2f windowSize = new(slop.Texture.Size.X, slop.Texture.Size.Y);
+        RenderWindow window = new(new VideoMode((uint)windowSize.X, (uint)windowSize.Y), "Slop");
+        window.Closed += (sender, e) => window.Close();
+        window.DispatchEvents();
+        window.Clear(Color.Black);
+
+        window.Draw(slop);
+        window.Display();
     }
 
     public void OnCollide(ICollidable collidable)

@@ -1,12 +1,9 @@
-class BreakableBlock : GameObject, ICollidable
+class BreakableBlock : Block, ICollidable
 {
-
     public event EventHandler BlockBreaked;
 
-    public BreakableBlock(Vector2f size, Vector2f startPos, string colorStartWithUpperCase, GameObjectHandler h) : base(h)
+    public BreakableBlock(Vector2f size, Vector2f startPos, string colorStartWithUpperCase, GameObjectHandler h) : base(size, startPos, "", h)
     {
-        this.size = size;
-        pos = startPos;
         sprite = new Sprite();
 
         if (colorStartWithUpperCase == "Blue" || colorStartWithUpperCase == "Green" || colorStartWithUpperCase == "Pink")
@@ -29,7 +26,7 @@ class BreakableBlock : GameObject, ICollidable
 
     public override void Update(float deltaTime)
     {
-        
+        roligaGrejerAttGöra();
     }
 
     public void OnCollide(ICollidable collidable)

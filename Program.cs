@@ -8,7 +8,10 @@ global using SFML.Window;
 //viktigt för linux
 
 //hemligt 🤫🤫1
-BreakOutGame.HiddenSlop();
+//BreakOutGame.HiddenSlop();
+//Detta är enklare att testa utan
+
+BreakOutGame.ChooseDifficulty();
 
 RenderWindow window = new(new VideoMode((uint)BreakOutGame.windowWidth, (uint)BreakOutGame.windowHeight), "AdolfKirk out");
 BreakOutGame gibb = new(window);
@@ -35,12 +38,12 @@ while (window.IsOpen)
     gibb.Update(deltaTime);
     gibb.DrawStuff();
 
-    //detta kanske inte funkar
-    if (gibb.health <= 0)
+    window.Display();
+    if (gibb.DeadRun)
     {
         gibb = new(window);
     }
-    window.Display();
+
 }
 
 window.Dispose();

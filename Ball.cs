@@ -11,10 +11,11 @@ class Ball : GameObject, IMovable, ICollidable
 
     public event EventHandler BallLeftScreen;
 
-    public Ball(Vector2f startPos, Paddle paddle, GameObjectHandler h) : base(h)
+    public Ball(Vector2f startPos, Paddle paddle, float moveSpeed, GameObjectHandler h) : base(h)
     {
         this.startPos = startPos;
         sprite = new Sprite();
+        //speed = moveSpeed;
         sprite.Texture = new Texture("assets/ball.png");
         sprite.Position = new Vector2f(250, 300);
         gibbObjectHandler = h;
@@ -59,7 +60,7 @@ class Ball : GameObject, IMovable, ICollidable
         foreach (GameObject gibbObject in gibbObjectHandler.GameList)
         {
             if (gibbObject.sprite == sprite)
-                continue; //skip its own sprite
+                continue; //skips to the next iteration if it found its own sprite
 
             if (Collision.CircleRectangle(pos, radius, gibbObject.Position, gibbObject.Size, out Vector2f hitPos))
             {

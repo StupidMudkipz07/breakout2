@@ -1,17 +1,16 @@
-class Paddle : GameObject, IMovable ,ICollidable
+class Paddle : GameObject, IMovable, ICollidable
 {
-    float paddleMoveSpeed = 400;
-
-    
-    public Paddle(int height,GameObjectHandler h) : base(h)
+    float paddleMoveSpeed;
+    public Paddle(int height, int moveSpeed, GameObjectHandler h) : base(h)
     {
         size = new(220, 53);
-        pos = new(BreakOutGame.windowWidth/2, height);
+        pos = new(BreakOutGame.windowWidth / 2, height);
         sprite = new Sprite();
         sprite.Texture = new Texture("assets/paddle.png");
         sprite.Position = pos;
+        paddleMoveSpeed = moveSpeed;
 
-        sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);  
+        sprite.Origin = (Vector2f)(sprite.Texture.Size / 2);
         sprite.Scale = new Vector2f(Size.X / sprite.Texture.Size.X, Size.Y / sprite.Texture.Size.Y);
     }
 
