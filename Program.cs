@@ -8,7 +8,7 @@ global using SFML.Window;
 //viktigt för linux
 
 //hemligt 🤫🤫1
-//BreakOutGame.HiddenSlop();
+BreakOutGame.HiddenSlop();
 //Detta är enklare att testa utan
 
 BreakOutGame.ChooseDifficulty();
@@ -26,7 +26,6 @@ window.KeyPressed += (sender, e) =>
     //input debug
     Console.WriteLine("Key pressed " + e.Code);
 };
-
 
 Clock clock = new Clock();
 while (window.IsOpen)

@@ -8,13 +8,33 @@ class BreakOutGame
 
     public static void ChooseDifficulty()
     {
+        Difficulty starkeAdolf = new Difficulty
+        {
+            playWidth = 1300,
+            playHeight = 1000,
+
+            tileWidth = 50,
+            amountOfRows = 30,
+            rows = 8,
+
+            paddleMoveSpeed = 300,
+            ballMoveSpeed = 500,
+
+            health = 1,
+
+            BlockDistraction = true,
+            BreakableBlockDistraction = true,
+            BreakableBlockDistractionSlop = true,
+            SoundDistractions = true
+        };
+        
         Difficulty hard = new Difficulty
         {
             playWidth = 1000,
             playHeight = 1050,
 
-            tileWidth = 100,
-            amountOfRows = 6,
+            tileWidth = 80,
+            amountOfRows = 8,
             rows = 6,
 
             paddleMoveSpeed = 350,
@@ -69,8 +89,10 @@ class BreakOutGame
         };
 
 
-        dif = hard;
-        //dif = easy;
+        //dif = hard;
+        //dif = starkeAdolf;
+        dif = easy;
+        //dif = medium;
     }
 
     int playWidth;
@@ -128,7 +150,7 @@ class BreakOutGame
         denLustigaSkärmen = window;
 
         ApplyDifficulty();
-        InitilizeAudio();
+        InitilizeAudioSlop();
 
         handler = new();
         paddel = new(windowHeight - 140, paddleMoveSpeed, handler);
@@ -248,6 +270,7 @@ class BreakOutGame
         handler.GibbGubb(deltaTime);
         CheckTiles();
         if (health <= 0) DeadRun = true;
+        //boll.speed = (float)(ballMoveSpeed * 1.01 *  points);
     }
 
     public void DrawStuff()
@@ -325,21 +348,27 @@ class BreakOutGame
         else return output;
     }
 
-    Dictionary<string, Sound> sounds = new(StringComparer.OrdinalIgnoreCase);
+                                       
+    Dictionary<string, Sound> sounds = new(StringComparer.OrdinalIgnoreCase); 
+    //                                                   ☝️skiter i stor eller liten bokstav
 
-    void InitilizeAudio()
+    void InitilizeAudioSlop()
     {
+        //får alla wav filer i assets och sparar de i en dictionary
         foreach (string filePath in Directory.EnumerateFiles("assets", "*.wav"))
         {
+            //så skönt att inte behöva skriva .wav
             string name = Path.GetFileNameWithoutExtension(filePath);
             var buffer = new SoundBuffer(filePath);
             sounds[name] = new Sound(buffer);
         }
     }
 
+    //gets the soundName value from the sounds dictionary then plays
     void PlaySound(string soundName)
     {
-        if (sounds.TryGetValue(soundName, out Sound sound))
+        //if it gets a string that doesnt exist it doesnt crash😂😂
+        if (sounds.TryGetValue( soundName, out Sound sound))
         {
             sound.Play();
         }
@@ -353,7 +382,7 @@ class BreakOutGame
         string[] names = sounds.Keys.ToArray();
         string randomName = names[new Random().Next(names.Length)];
 
-        if (!SoundDistractions) randomName = "vine-boom.wav";
+        if (!SoundDistractions) randomName = "vine-boom";
 
 
         PlaySound(randomName);
