@@ -8,11 +8,11 @@ class Ball : GameObject, IMovable, ICollidable
     GameObjectHandler gibbObjectHandler;
     Paddle paadel;
     bool IsNotAdolf = false;
-
     public event EventHandler BallLeftScreen;
 
     public Ball(Vector2f startPos, Paddle paddle, float moveSpeed, GameObjectHandler h) : base(h)
     {
+        speed = moveSpeed;
         this.startPos = startPos;
         sprite = new Sprite();
         //speed = moveSpeed;
