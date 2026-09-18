@@ -8,7 +8,7 @@ class BreakOutGame
 
     public static void ChooseDifficulty()
     {
-        Difficulty test = new Difficulty
+        Difficulty hard = new Difficulty
         {
             playWidth = 1000,
             playHeight = 1050,
@@ -17,8 +17,8 @@ class BreakOutGame
             amountOfRows = 6,
             rows = 6,
 
-            paddleMoveSpeed = 400,
-            ballMoveSpeed = 400,
+            paddleMoveSpeed = 350,
+            ballMoveSpeed = 450,
 
             health = 3,
 
@@ -30,14 +30,14 @@ class BreakOutGame
 
         Difficulty easy = new Difficulty
         {
-            playWidth = 850,
-            playHeight = 1000,
+            playWidth = 800,
+            playHeight = 900,
 
             tileWidth = 100,
             amountOfRows = 4,
             rows = 4,
 
-            paddleMoveSpeed = 500,
+            paddleMoveSpeed = 550,
             ballMoveSpeed = 300,
 
             health = 6,
@@ -48,8 +48,28 @@ class BreakOutGame
             SoundDistractions = false,
         };
 
+   Difficulty medium = new Difficulty
+        {
+            playWidth = 970,
+            playHeight = 1020,
 
-        dif = test;
+            tileWidth = 100,
+            amountOfRows = 5,
+            rows = 5,
+
+            paddleMoveSpeed = 450,
+            ballMoveSpeed = 350,
+
+            health = 4,
+
+            BlockDistraction = true,
+            BreakableBlockDistraction = false,  
+            BreakableBlockDistractionSlop = false,
+            SoundDistractions = false,
+        };
+
+
+        dif = hard;
         //dif = easy;
     }
 
@@ -180,9 +200,9 @@ class BreakOutGame
         }
         else
         {
-            boundaries[0] = MakeBlock(new(0, 0), new(mcnuttWidth, windowHeight), "");
-            boundaries[1] = MakeBlock(new(windowWidth - mcnuttWidth, 0), new(mcnuttWidth, windowHeight), "");
-            boundaries[2] = MakeBlock(new(mcnuttWidth, 0), new(windowWidth - (mcnuttWidth * 2), mcnuttHeight), "");
+            boundaries[0] = MakeBlock(new(0, 0), new(mcnuttWidth, windowHeight), "assets/tileBlue.png");
+            boundaries[1] = MakeBlock(new(windowWidth - mcnuttWidth, 0), new(mcnuttWidth, windowHeight), "assets/tileGreen.png");
+            boundaries[2] = MakeBlock(new(mcnuttWidth, 0), new(windowWidth - (mcnuttWidth * 2), mcnuttHeight), "assets/tilePink.png");
         }
         //boundaries[3] = MakeBlock(new(mcnuttWidth, windowHeight - 40), new(windowWidth - (mcnuttWidth * 2), 40));
     }

@@ -1,6 +1,6 @@
 class Ball : GameObject, IMovable, ICollidable
 {
-    float speed = 500;
+    float speed;
     const float radius = 25;
     const float diameter = radius * 2;
     Vector2f startPos = new();
